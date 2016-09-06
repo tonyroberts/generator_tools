@@ -36,7 +36,8 @@ class GeneratorSnapshot(object):
         self.gi_frame.f_code   = CodeObj(f_code)
         self.gi_frame.f_lasti  = f_gen.gi_frame.f_lasti
         self.gi_frame.f_locals = {}
-        self.gi_frame.f_globals = {}
+        self.gi_frame.f_globals = None
+        self.gi_frame.f_module = f_gen.gi_frame.f_globals.get("__name__")
         locals = f_gen.gi_frame.f_locals.items()
         for key, value in locals:
             if isinstance(value, (Generatorcopy, types.GeneratorType)):
@@ -543,8 +544,17 @@ def copy_generator(f_gen, copy_filter = is_sharable ):
              f_code.co_name,
              f_code.co_firstlineno,
              f_code.co_lnotab)
-    #g = new.function(new_code, globals(),)
-    g = new.function(new_code, new_globals(f_gen.gi_frame),)
+
+    # If the generator has a module set and no globals, use the globals from the module.
+    # Note that this means that all globals used in the generator must be constants.
+    f_module = getattr(f_gen.gi_frame, "f_module", None)
+    if f_module is not None and f_gen.gi_frame.f_globals is None:
+        __import__(f_module)
+        f_globals = sys.modules[f_module].__dict__
+    else:
+        f_globals = new_globals(f_gen.gi_frame)
+
+    g = new.function(new_code, f_globals,)
     g_gen = g(*params)
     return Generatorcopy(g_gen, g, offset, f_code, bounds)
 
