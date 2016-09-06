@@ -70,12 +70,8 @@ class CodeObj(object):
 
 class CopyGeneratorException(Exception): pass
 
-if sys.version_info[:2] == (2,4):
-    offset_inc = 1
-elif sys.version_info[:2] == (2,5):
-    offset_inc = 2
-elif sys.version_info[:2] == (2,6):
-    offset_inc = 2
+assert sys.version_info[:2] == (2,7)
+offset_inc = 2
 
 setupcode = [opmap['SETUP_LOOP'], opmap['SETUP_EXCEPT'], opmap['SETUP_FINALLY']]
 
@@ -221,51 +217,41 @@ class ByteCodeModifier(object):
         self.statistics = {}
         self.statistics["FOR_ITER"] = []
 
-    def conditional_jump(self, n, setup_offset = 0, anchor = None):
+    def conditional_jump(self, n, position, setup_offset = 0, anchor = None):
         '''
-        0  LOAD_FAST       n (jump_forward_on)
-        3  JUMP_IF_FALSE   4
-        6  POP_TOP
-        7  JUMP_ABSOLUTE   setup_offset
-        10 POP_TOP
+        0  LOAD_FAST                n (jump_forward_on)
+        3  POP_JUMP_IF_TRUE         setup_offset
         '''
         opcode = []
-        opcode.extend([opmap["LOAD_FAST"],n,0])
-        opcode.extend([opmap["JUMP_IF_FALSE"],4,0])
-        opcode.extend([opmap["POP_TOP"]])
+        opcode.extend([opmap["LOAD_FAST"],n, 0])
         if anchor:
-            op = Opcode(opmap["JUMP_ABSOLUTE"])
+            op = Opcode(opmap["POP_JUMP_IF_TRUE"])
             op.linked_to = anchor
             opcode.extend([op,0,0])
         else:
-            opcode.extend([opmap["JUMP_ABSOLUTE"]]+list(divmod(setup_offset, 256)[::-1]))
-        opcode.extend([opmap["POP_TOP"]])
+            opcode.extend([opmap["POP_JUMP_IF_TRUE"]]+list(divmod(setup_offset, 256)[::-1]))
         return [(Opcode(op) if not isinstance(op, Opcode) else op) for op in opcode]
 
-
-    def conditional_jump_ex(self, n, setup_offset = 0, anchor = None):
+    def conditional_jump_ex(self, n, position, setup_offset = 0, anchor = None):
         '''
-        0  LOAD_FAST       n   (jump_forward_on)
-        3  JUMP_IF_FALSE   10
-        6  LOAD_FAST       n+1 (jump_forward_off)
-        9  STORE_FAST      n
-        12 POP_TOP
-        13 JUMP_ABSOLUTE   setup_offset
-        16 POP_TOP
+        0  LOAD_FAST            n   (jump_forward_on)
+        3  POP_JUMP_IF_FALSE    15 + position
+        6  LOAD_FAST            n+1 (jump_forward_off)
+        9  STORE_FAST           n
+        12 JUMP_ABSOLUTE        setup_offset
+        15 END
         '''
         opcode = []
         opcode.extend([opmap["LOAD_FAST"],n,0])
-        opcode.extend([opmap["JUMP_IF_FALSE"],10,0])
+        opcode.extend([opmap["POP_JUMP_IF_FALSE"]]+list(divmod(position+15, 256)[::-1]))
         opcode.extend([opmap["LOAD_FAST"],n+1,0])
         opcode.extend([opmap["STORE_FAST"],n,0])
-        opcode.extend([opmap["POP_TOP"]])
         if anchor:
             op = Opcode(opmap["JUMP_ABSOLUTE"])
             op.linked_to = anchor
             opcode.extend([op,0,0])
         else:
             opcode.extend([opmap["JUMP_ABSOLUTE"]]+list(divmod(setup_offset, 256)[::-1]))
-        opcode.extend([opmap["POP_TOP"]])
         return [(Opcode(op) if not isinstance(op, Opcode) else op) for op in opcode]
 
     def prepare(self, bytecode, offset):
@@ -345,18 +331,23 @@ class ByteCodeModifier(object):
                         newbytecode = self.initialize_jump_absolute(newbytecode, start, jump_targets[k])
                         initialized = True
                 next_target = jump_targets[k+1]
-                if k+2 == len(jump_targets):
-                    B = self.conditional_jump_ex(nlocals, anchor = next_target)
-                else:
-                    B = self.conditional_jump(nlocals, anchor = next_target)
                 d = op.index_r - op.index_l
                 # print op.index_r, op.index_l, d
                 newbytecode.extend(bytecode[i:i+d+3])
+                position = len(newbytecode)
+                if k+2 == len(jump_targets):
+                    B = self.conditional_jump_ex(nlocals, position, anchor = next_target)
+                else:
+                    B = self.conditional_jump(nlocals, position, anchor = next_target)
                 newbytecode.extend(B)
                 i+=d+3
             else:
-                newbytecode.append(op)
-                i+=1
+                if op >= HAVE_ARGUMENT:
+                    newbytecode.extend(bytecode[i:i+3])
+                    i += 3
+                else:
+                    newbytecode.append(op)
+                    i+=1
         if not initialized:
             newbytecode = self.initialize_jump_absolute(newbytecode, start, jump_targets[0])
         newbytecode.extend(bytecode[offset:])
@@ -381,7 +372,10 @@ class ByteCodeModifier(object):
                 opcodes[i+2] = Opcode(high)
                 i+=3
             else:
-                i+=1
+                if op >= HAVE_ARGUMENT:
+                    i += 3
+                else:
+                    i+=1
 
 class generatorwrapper(object):
     def __init__(self, g_gen, *args):

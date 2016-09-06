@@ -335,6 +335,12 @@ class TestForAndWhileStmtWithAddArgs(unittest.TestCase):
         return f
 
 class TestMultipleGenerators(unittest.TestCase):
+
+    def __getstate__(self):
+        d = dict(self.__dict__)
+        d["_resultForDoCleanups"] = None
+        return d
+
     def g1(self, x,y):
         r = for_iter(range(7))
         for i in r:

@@ -2,8 +2,13 @@ generator_tools
 ===============
 
 generator_tools is a package used to provide facilities for generators such as
-dopying and pickling. generator_tools are available for Python 2.5 and Python 2.6.
+copying and pickling.
 
+This project has been forked from version 0.3.6
+http://www.fiber-space.de/generator_tools/doc/generator_tools.html.
+
+It has been modified to work with Python 2.7, and support for earlier Python versions has
+been dropped.
 
 INSTALLATION
 
@@ -39,7 +44,7 @@ def f(start):
 		i+=1
 
 >>> f_gen = f(5)
->>> f_gen.next()   # or next(f_gen) in Python 3.0
+>>> f_gen.next()
 5
 >>> f_gen.next()
 6
@@ -54,8 +59,4 @@ def f(start):
 >>> k_gen = pickler.unpickle_generator()
 >>> list(g_gen) == list(k_gen)
 True
-
-
-
-
 
