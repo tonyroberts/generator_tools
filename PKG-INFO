@@ -1,0 +1,11 @@
+Metadata-Version: 1.0
+Name: generator_tools
+Version: 0.3.6
+Summary: generator_tools enable copying and pickling generators
+Home-page: http://www.fiber-space.de/
+Author: Kay Schluehr
+Author-email: kay@fiber-space.de
+License: BSD
+Download-URL: http://www.fiber-space.de/downloads/download.html
+Description: UNKNOWN
+Platform: UNKNOWN

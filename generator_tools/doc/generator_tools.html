@@ -1,0 +1,1842 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+  <title>generator_tools</title>
+  <meta content="Kay Schluehr" name="author">
+</head>
+<body>
+<table
+ style="text-align: left; margin-left: auto; margin-right: auto; width: 100%;"
+ cellpadding="0" cellspacing="2">
+  <tbody>
+    <tr>
+      <td
+ style="background-color: rgb(153, 153, 153); width: 100%; text-align: left;">
+      <div style="text-align: center;"> </div>
+      <div style="margin-left: 240px; text-align: left;"><big><span
+ style="font-weight: bold; font-family: arial; color: rgb(255, 0, 0);">&nbsp;&nbsp;&nbsp;&nbsp;
+g
+e n e r a t o r _ t o o l s</span></big><br>
+      </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<img alt="" src="FS.png" style="width: 76px; height: 71px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<table style="text-align: left; width: 798px; height: 343px;" border="0"
+ cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      <img style="width: 454px; height: 216px;" alt=""
+ src="generator_tools.png"><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"> <br>
+      <a style="font-weight: bold;"
+ href="../../../../downloads/downloads.html">Package download</a> </td>
+      <td style="vertical-align: top;"><small><span
+ style="font-family: copperplate gothic light;"><big
+ style="font-family: franklin gothic book;">&nbsp;&nbsp;&nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+Author: Kay Schluehr</big></span><big
+ style="font-family: franklin gothic book;"><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; Date: 2009-02-24<br>
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Version: 0.3.6<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+E-Mail: kay@fiber-space.de<br>
+      </big><span style="font-family: arial;"><span
+ style="font-family: copperplate gothic bold;"> </span></span></small></td>
+    </tr>
+  </tbody>
+</table>
+<small><span style="font-family: arial;"><span
+ style="font-family: copperplate gothic bold;">
+</span></span></small>
+<table style="text-align: left; width: 754px; height: 2773px;"
+ border="0" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"> <span
+ style="font-weight: bold;"><br>
+      </span>
+      <ul id="mozToc">
+<!--mozToc h1 1 h2 2 h3 3 h4 4-->
+        <li><a href="#mozTocId88641">1. Introduction </a></li>
+        <li><a href="#mozTocId617308">2. copy_generator </a>
+          <ul>
+            <li><a href="#mozTocId557432">2.1 copy_generator usage</a>
+              <ul>
+                <li><a href="#mozTocId579046">2.1.1 copy_generator and
+for-loops </a></li>
+                <li><a href="#mozTocId438237">2.1.2 Modify the copying
+behaviour </a></li>
+              </ul>
+            </li>
+            <li><a href="#mozTocId617294">2.2 copy_generator
+implementation </a>
+              <ul>
+                <li><a href="#mozTocId71007">2.2.1 Making a JUMP
+ABSOLUTE </a></li>
+                <li><a href="#mozTocId302182">2.2.2&nbsp; A crash with
+many causes </a></li>
+                <li><a href="#mozTocId637208">2.2.3&nbsp; Chains of
+jumps and blocks </a></li>
+              </ul>
+            </li>
+            <li><a href="#mozTocId741289">2.3 How to clone a running
+for-loop ? </a></li>
+          </ul>
+        </li>
+        <li><a href="#mozTocId742105">3. The picklegenerators
+module </a></li>
+        <li><a href="#mozTocId957312">4. Caveats and Limitations </a>
+          <ul>
+            <li><a href="#mozTocId214915">4.1 Avoid yield statements in
+finally clauses</a></li>
+            <li><a href="#mozTocId712413">4.2 Avoid Python 2.5 yield
+expressions</a></li>
+            <ul>
+              <li><a href="#mozTocId909573">4.2.1 How to use
+generator_tools to crash the interpreter</a></li>
+            </ul>
+            <ul>
+              <li><a href="#mozTocId331854">4.2.2&nbsp; Why aren't
+yield expressions entirely evil?</a></li>
+              <li><a href="#mozTocId698221">4.2.3&nbsp; A generator
+copy is always a fresh generator</a></li>
+            </ul>
+            <li><a href="#mozTocId960205">4.3 Avoid closures</a></li>
+            <li><a href="#mozTocId861929">4.4 Python 3.0 is not dry yet</a></li>
+          </ul>
+        </li>
+        <li><a href="#mozTocId794616">5. Acknowledgements</a></li>
+        <li><a href="#mozTocId457475">6. History</a></li>
+      </ul>
+      <br>
+      <br>
+      <h1><a class="mozTocH1" name="mozTocId88641"></a>1. Introduction<br>
+      </h1>
+Generators are a fundamental abstraction of the Python language.
+Generators were first introduced in Python 2.2 together with the yield
+keyword turning a function into an generator. In subsequent releases
+Python became ever more generator friendly with generator expressions
+and finally with turning yield statements into yield expressions and
+generators into proper coroutines. A few limitations however remained.
+Most notably generators are not copyable and can't be pickled which is
+an
+obstacle for using generators to implement lightweight concurrency a la
+Erlang and distribute them transparently across different OS level
+processes. These problems have been solved by the <a
+ href="http://www.stackless.com/">Stackless Python</a> dialect of
+Python which addressed coroutines and cooperative multitasking
+specifically.While SP preceeded CPythons development of coroutines for
+years, the arival of Python 2.5 means a significant feature overlap
+between SP tasklets and generators. <br>
+      <br>
+As long as no native implementation for copying generators is available
+the generator_tools package can be used to close the gap. The package
+is implemented in pure Python and it is available for Python 2.5 and
+also Python 3.0. <br>
+      <br>
+The basic facilities are the <small
+ style="font-family: Courier New,Courier,monospace;">copy_generator</small>
+and <small style="font-family: Courier New,Courier,monospace;">pickle_generator</small>
+functions. Those were described in sections 2 and 3.<br>
+      <br>
+      <h1><a class="mozTocH1" name="mozTocId617308"></a>2.
+copy_generator<br>
+      </h1>
+The implementation of copy_generator is based on a deep bytecode hack
+or expressed in less pejorative manner: it uses runtime introspection
+and Python bytecode assembler synthesis. For those who are impatient
+and not interested in detail design the API is treated first. Later in
+section 2.2 the implementation strategy is iluminated.<br>
+      <br>
+      <h2><a class="mozTocH2" name="mozTocId557432"></a>2.1
+copy_generator usage</h2>
+      <dl>
+        <dt>
+          <table cellpadding="0" cellspacing="0">
+            <tbody>
+              <tr valign="baseline">
+                <td><nobr><span style="font-family: monospace;"><span
+ style="font-weight: bold;">copy_generator</span></span>(</nobr></td>
+                <td><var></var><span style="font-style: italic;">f_gen,
+[copy_filter]</span>)</td>
+              </tr>
+            </tbody>
+          </table>
+        </dt>
+        <dd>Keeps a generator object and returns a <small
+ style="font-family: Courier New,Courier,monospace;">generatorcopy</small>
+object. A <small style="font-family: Courier New,Courier,monospace;">generatorcopy</small>
+object provides the same public interface and behaviour as a generator
+object but stores additional data used for re-copying. Passing a <small
+ style="font-family: Courier New,Courier,monospace;">generatorcopy</small>
+object is permitted as well. <br>
+          <span style="font-weight: bold;"></span><span
+ style="color: rgb(153, 0, 0); font-weight: bold;">New in version
+0.2:</span><span style="font-weight: bold;"></span> You can pass an
+optional copy_filter parameter which is a boolean function of one
+argument. The argument being passed on call of copy_filter is a local
+variable of the copied generator. The default behaviour is such that
+all locals ( and therefore the generator ) is deepcopied. An exception
+is made with objects that have an attribute "sharable" with value
+sharable = True. Locals which are assigned as sharable are passed into
+the generatorcopy uncopied i.e. without creating new object identities
+( see also 2.1.2 for examples ).<br>
+        </dd>
+      </dl>
+      <span style="font-weight: bold;">Example 1:</span><br>
+      <br>
+      <small> </small><small> </small><small> </small><small> </small><small>
+      </small> <small> </small>
+      <table
+ style="background-color: rgb(255, 255, 239); font-family: courier new; text-align: left; width: 741px; height: 54px;"
+ border="0" cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td
+ style="background-color: rgb(236, 236, 236); vertical-align: top;"><small><span
+ style="font-weight: bold;"></span>def
+f(start):&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+# generator<br>
+&nbsp;&nbsp;&nbsp; i = start<br>
+&nbsp;&nbsp;&nbsp; while i&lt;start+10:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; yield i<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i+=1<br>
+            <br>
+&gt;&gt;&gt; f_gen = f(3)&nbsp; # creating a generator object f_gen<br>
+&gt;&gt;&gt; f_gen.next()&nbsp; # do some action<br>
+3<br>
+&gt;&gt;&gt; g_gen = copy_generator(f_gen)<br>
+&gt;&gt;&gt; g_gen.next()<br>
+4<br>
+&gt;&gt;&gt; f_gen.next()<br>
+4<br>
+&gt;&gt;&gt; list(f_gen) == list(g_gen)<br>
+True<br>
+            </small></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <h3><a class="mozTocH3" name="mozTocId579046"></a>2.1.1
+copy_generator and for-loops<br>
+      </h3>
+Copying generators containing while-loops, even nested while loops
+doesn't cause known problems. Also interactions with try...except
+statements is not troublesome. However for-loop defintions don't work
+out of the
+box. We elaborate on this in the nexrt subsection. Here I will present
+the
+workaround only that makes for-loops copyable. Note, this workaround is
+enforced by the current implementation and a <small
+ style="font-family: Courier New,Courier,monospace;">CopyGeneratorException</small>
+is raised when not being detected.<br>
+      <br>
+Syntactically a for-loop has three user defined parts:<br>
+      <br>
+      <small style="font-family: Courier New,Courier,monospace;"><span
+ style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+for_stmt: 'for' exprlist 'in' testlist ':' suite <br>
+      <br>
+      </span></small>We are only interested in the <small
+ style="font-family: Courier New,Courier,monospace;">testlist</small>
+part which is highlighted in the following example:<br>
+      <br>
+      <small> </small><small> </small><small> </small><small> </small><small>
+      </small> <small> </small>
+      <table
+ style="background-color: rgb(255, 255, 239); font-family: courier new; text-align: left; width: 741px; height: 54px;"
+ border="0" cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td
+ style="background-color: rgb(236, 236, 236); vertical-align: top;"><small><span
+ style="font-weight: bold;"></span>for k in <span
+ style="font-weight: bold; color: rgb(204, 0, 0);">range(20)</span><span
+ style="color: rgb(204, 0, 0);">:</span>&nbsp;&nbsp;&nbsp; # in this
+form copy_generator can't transfer state<br>
+&nbsp;&nbsp;&nbsp;
+yield k<br>
+            </small></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+This testlist part has to be factored out. But this alone is not
+sufficient. It has to be wrapped using the <small><span
+ style="font-family: Courier New,Courier,monospace;">for_iter</span></small>
+function:<br>
+      <br>
+      <small> </small><small> </small><small> </small><small> </small><small>
+      </small> <small> </small>
+      <table
+ style="background-color: rgb(255, 255, 239); font-family: courier new; text-align: left; width: 741px; height: 54px;"
+ border="0" cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td
+ style="background-color: rgb(236, 236, 236); vertical-align: top;"><small><span
+ style="font-weight: bold;"></span>it = <span
+ style="font-weight: bold; color: rgb(204, 0, 0);">for_iter(</span></small><small
+ style="font-weight: bold;"><span style="color: rgb(204, 0, 0);">range(20))</span>&nbsp;
+            </small><small># required boilerplate</small><small><span
+ style="font-weight: bold;"></span></small><br>
+            <small>for k in it:&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;
+yield k<br>
+            </small></td>
+          </tr>
+        </tbody>
+      </table>
+      <small style="font-family: Courier New,Courier,monospace;"><span
+ style="font-weight: bold;"></span></small><small><span
+ style="font-family: Courier New,Courier,monospace;"></span></small><br>
+      <dl>
+        <dt>
+          <table cellpadding="0" cellspacing="0">
+            <tbody>
+              <tr valign="baseline">
+                <td><nobr><span style="font-family: monospace;"><span
+ style="font-weight: bold;">for_iter</span></span>(</nobr></td>
+                <td><var></var><span style="font-style: italic;">iterable</span>)</td>
+              </tr>
+            </tbody>
+          </table>
+        </dt>
+        <dd>Keeps an iterable and returns an object of type
+IteratorView. IteratorViews can be saved and copied. Different
+IteratorViews can share a unique iterator and maintain
+their own state of iteration.</dd>
+      </dl>
+IteratorViews being exposed as local variables enable the
+copy_generator function to deal with nested
+for-loops and generator sequences:<br>
+      <br>
+      <span style="font-weight: bold;">Example 2 ( continues Example 1):</span><br>
+      <br>
+      <small> </small><small> </small><small> </small><small> </small><small>
+      </small> <small> </small>
+      <table
+ style="background-color: rgb(255, 255, 239); font-family: courier new; text-align: left; width: 741px; height: 54px;"
+ border="0" cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td
+ style="background-color: rgb(236, 236, 236); vertical-align: top;"><small><span
+ style="font-weight: bold;"></span>def g(x,y):<br>
+&nbsp;&nbsp;&nbsp;&nbsp; r = for_iter(range(x,y))<br>
+&nbsp;&nbsp;&nbsp;&nbsp; for i in r:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; yield i<br>
+            <br>
+def f():<br>
+&nbsp;&nbsp;&nbsp; G = for_iter([g(0,7), g(7,14), g(14, 21)])<br>
+&nbsp;&nbsp;&nbsp; for h in G:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; H = for_iter(h)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for item in H:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+yield item<br>
+            <br>
+&gt;&gt;&gt; gen_f = f()<br>
+&gt;&gt;&gt; gen_f.next()<br>
+0<br>
+            </small><small>&gt;&gt;&gt; gen_f.next()<br>
+1<br>
+&gt;&gt;&gt; gen_g.next()<br>
+2<br>
+&gt;&gt;&gt; gen_f.next()<br>
+2<br>
+&gt;&gt;&gt; list(gen_f) == list(gen_g)<br>
+True</small><small><br>
+            </small></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+For additional examples you might take a look at unit tests
+implemented in test/test_copygenerators.py<br>
+      <br>
+      <h3><a class="mozTocH3" name="mozTocId438237"></a>2.1.2 Modify
+the copying behaviour ( <span style="color: rgb(102, 51, 102);"><span
+ style="color: rgb(153, 0, 0);">new
+in version 0.2</span> </span>)<br>
+      </h3>
+Basically the copy_generator function produces deepcopies of generator
+objects. However this can be regulated. The second optional parameter
+is a function with signature <small
+ style="font-family: Courier New,Courier,monospace;">object -&gt; bool</small>.
+It is called copy_filter. The copy_generator function has a default
+copy_filter defined as:<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <small
+ style="font-family: Courier New,Courier,monospace;">lambda loc :
+hasattr(loc, "sharable") and loc.sharable</small><br>
+      <br>
+The idea is that only those objects that pass the filter get shared or
+passed unmodifed into the generator copy. All others are deepcopied and
+a shared nothing policy is applied.<br>
+      <br>
+One other relevant copy_filter is simple:<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <small
+ style="font-family: Courier New,Courier,monospace;">lambda loc : True<br>
+      <br>
+      </small>Here everying is shared. This copy_filter is used on
+reconstring a generator object from pickling. The usecase is motivated
+as follows. One cannot pickle a generator object gen_f directly but has
+to map it onto a GeneratorSnapshot object GS_f&nbsp; first that can be
+pickled. On unpickling GS_f will be reconstructed and to get gen_f back
+one has to apply copy_generator(GS_f) once. Here we share each local of
+GS_f with the new gen_f and throw GS_f away in the next step. Note this
+is fully automized and you usually don't have to care unless you want
+to implement your own pickling routines.<br>
+      <br>
+      <h2><a class="mozTocH2" name="mozTocId617294"></a>2.2
+copy_generator implementation<br>
+      </h2>
+The implementation of copy_generator is based on two ideas:<br>
+      <ol>
+        <li>Modify the generator assembly and generate JUMP_ABSOLUTE
+commands on certain jump addresses. That's easy on a first try but hard
+to get it right s.t. no stack is corrupted.</li>
+        <li>Read all local variables of an existing generator object
+f_gen using runtime introspection and pass them as parameters into a
+newly created generator function g. These parameters constitute the
+local
+environment for executing the generator object g_gen created from g.</li>
+      </ol>
+      <h3><a class="mozTocH3" name="mozTocId71007"></a>2.2.1 Making a
+JUMP ABSOLUTE<br>
+      </h3>
+Let's consider the following simple Python generator containing two
+nested while-loops and the related disassembly:<br>
+      <br>
+      <small> </small><small> </small><small> </small><small> </small><small>
+      </small> <small> </small>
+      <table
+ style="background-color: rgb(255, 255, 239); font-family: courier new; text-align: left; width: 741px; height: 54px;"
+ border="0" cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td
+ style="background-color: rgb(236, 236, 236); vertical-align: top;"><small><span
+ style="font-weight: bold;"></span></small><small>def f(x, y):<br>
+&nbsp;&nbsp;&nbsp; i = 0<br>
+&nbsp;&nbsp;&nbsp; while i&lt;x:<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; j = 0<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; yield i<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; while j&lt;y:<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; yield (i,j)<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; j+=1<br>
+            <br>
+&gt;&gt;&gt; import dis<br>
+&gt;&gt;&gt; dis.dis(f)<br>
+            <br>
+            </small><small><span
+ style="font-family: Courier New,Courier,monospace;">&nbsp;
+2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0
+LOAD_CONST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1 (0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+3
+STORE_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2 (i)<br>
+            <br>
+&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6
+SETUP_LOOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+71 (to 80)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt;&nbsp;&nbsp;&nbsp; 9
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2 (i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+12
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0 (x)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+15
+COMPARE_OP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0 (&lt;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+18
+JUMP_IF_FALSE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+57 (to 78)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+21
+POP_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br>
+            <br>
+&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 22
+LOAD_CONST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1 (0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+25
+STORE_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+3 (j)<br>
+            <br>
+&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 28
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2 (i)<span style="font-weight: bold;"><br>
+            </span></span></small><small style="color: rgb(204, 0, 0);"><span
+ style="font-family: Courier New,Courier,monospace;"><span
+ style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+31 YIELD_VALUE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></small><br>
+            <small><span
+ style="font-family: Courier New,Courier,monospace;"><span
+ style="font-weight: bold;"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+32
+POP_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br>
+            <br>
+&nbsp; 6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 33
+SETUP_LOOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+39 (to 75)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt;&nbsp;&nbsp; 36
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+3 (j)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+39
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1 (y)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+42
+COMPARE_OP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0 (&lt;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+45
+JUMP_IF_FALSE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+25 (to 73)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+48
+POP_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br>
+            <br>
+&nbsp; 7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 49
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2 (i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+52
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+3 (j)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+55
+BUILD_TUPLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2<br>
+            <span style="font-weight: bold;"></span></span></small><small
+ style="color: rgb(204, 0, 0);"><span
+ style="font-family: Courier New,Courier,monospace;"><span
+ style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+58 YIELD_VALUE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></small><small><span
+ style="font-family: Courier New,Courier,monospace;"><span
+ style="font-weight: bold;"></span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+59
+POP_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br>
+            <br>
+&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 60
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+3 (j)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+63
+LOAD_CONST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2 (1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+66 INPLACE_ADD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+67
+STORE_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+3 (j)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+70
+JUMP_ABSOLUTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+36<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt;&nbsp;&nbsp; 73
+POP_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+74
+POP_BLOCK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt;&nbsp;&nbsp; 75
+JUMP_ABSOLUTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+9<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt;&nbsp;&nbsp; 78
+POP_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+79
+POP_BLOCK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt;&nbsp;&nbsp; 80
+LOAD_CONST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0 (None)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+83 RETURN_VALUE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+            </span></small><br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+In case of stopping the generator and yielding the first value ( here
+it is <span style="font-style: italic;">i</span> ) the last executed
+instruction has the index 31 which is considered as a label or offset
+when counting from the start of the bytecode sequence. We can read this
+value from an generator object in a state of execution with non-empty
+stack frame:<br>
+      <br>
+      <small> </small><small> </small><small> </small><small> </small><small>
+      </small> <small> </small>
+      <table
+ style="background-color: rgb(255, 255, 239); font-family: courier new; text-align: left; width: 741px; height: 54px;"
+ border="0" cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td
+ style="background-color: rgb(236, 236, 236); vertical-align: top;"><small><span
+ style="font-weight: bold;"></span>&gt;&gt;&gt; f_gen = f(3,4)<br>
+&gt;&gt;&gt; f_gen.gi_frame.f_lasti<br>
+-1<br>
+&gt;&gt;&gt; f_gen.next()<br>
+0<br>
+&gt;&gt;&gt; f_gen.gi_frame.f_lasti<br>
+31<br>
+            </small><small><br>
+            </small></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+Actually we can keep more information from f_gen, namely the current
+local context of evaluation:<br>
+      <br>
+      <small> </small><small> </small><small> </small><small> </small><small>
+      </small> <small> </small>
+      <table
+ style="background-color: rgb(255, 255, 239); font-family: courier new; text-align: left; width: 741px; height: 54px;"
+ border="0" cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td
+ style="background-color: rgb(236, 236, 236); vertical-align: top;"><small><span
+ style="font-weight: bold;"></span>&gt;&gt;&gt; f_gen.gi_frame.f_locals<br>
+{'i': 0, 'y': 4, 'j': 0, 'x': 3}</small><small><br>
+            </small></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+Now suppose we have a function g which keeps all local variables at
+jump address 31 of f as parameters:<br>
+      <br>
+      <small> </small><small> </small><small> </small><small> </small><small>
+      </small> <small> </small>
+      <table
+ style="background-color: rgb(255, 255, 239); font-family: courier new; text-align: left; width: 741px; height: 54px;"
+ border="0" cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td
+ style="background-color: rgb(236, 236, 236); vertical-align: top;"><small>def
+g(x, y, i, j):<br>
+&nbsp;&nbsp;&nbsp; i = 0<br>
+&nbsp;&nbsp;&nbsp; while i&lt;x:<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; j = 0<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; yield i<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; while j&lt;y:<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; yield (i,j)<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; j+=1</small><br>
+            <small> </small></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+But instead of starting evaluation with a LOAD_CONST bytecode we aim to
+jump directly of the offset 31 i.e. exactly to the place where
+evaluation of f_gen has
+stopped. The bytecode interpreter actually needs to jump a little
+further because evaluating
+POP_TOP is meaningfull only when a preceeding stack operation was
+performed. So we increment the offset by 2. <br>
+      <br>
+We express our decision by prepending a
+JUMP_ABSOLUTE bytecode with 33 as its argument.<br>
+      <br>
+      <small> </small><small> </small><small> </small><small> </small><small>
+      </small> <small> </small>
+      <table
+ style="background-color: rgb(255, 255, 239); font-family: courier new; text-align: left; width: 741px; height: 54px;"
+ border="0" cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td
+ style="background-color: rgb(236, 236, 236); vertical-align: top;"><small><span
+ style="font-family: Courier New,Courier,monospace;"><br>
+&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+ style="font-weight: bold; color: rgb(204, 0, 0);">0
+JUMP_ABSOLUTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+33 </span></span></small><br>
+            <small><span
+ style="font-family: Courier New,Courier,monospace;">&nbsp; &nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3
+LOAD_CONST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1 (0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+6
+STORE_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2 (i)<br>
+            <br>
+&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9
+SETUP_LOOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+74 (to 83)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt;&nbsp;&nbsp; 12
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2 (i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+15
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0 (x)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+....<br>
+            </span></small><small> </small></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+With this modified bytecode we can create the function g which resumes
+execution where f_gen was stopped.<br>
+      <br>
+      <h3><a class="mozTocH3" name="mozTocId302182"></a>2.2.2&nbsp; A
+crash with many causes<br>
+      </h3>
+The first naive solution has been suggested as a <a
+ href="http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/528949">recipe</a>
+in the ActiveState Python Cookbook and it failed as Klaus Müller from
+the <a href="http://simpy.sourceforge.net/">SimPy</a> projected
+pointed out. The cause of error is not easy to see. There are three
+factors:<br>
+      <ol>
+        <li>The first implementation didn't correct the jump addresses
+of all other JUMP_ABSOLUTE calls. This caused the error message Klaus
+reported. The algorithm jumped to invalid address. <br>
+        </li>
+        <li>With SETUP_LOOP and other SETUP_XXX commands a block is
+pushed on a block stack. The complementary action is POP_BLOCK. While
+an
+underflow ( too many POP_BLOCK calls ) leads to immediate crash, an
+upper threshold for SETUP_LOOP calls ( currently 20 ) that guides
+overflow exceptions. You can check this out by creating 20 nested
+while-loops for example.<br>
+        </li>
+        <li>Klaus example contained a for-loop. For-loops are more
+complex to handle than while-loops. On bytecode level they are
+distincted by the
+additional bytecodes GET_ITER and FOR_ITER. GET_ITER creates an
+internal iterable not being exposed a user level code and pushes it on
+the stack. Without exposition it can't be copied. But what's worse
+GET_ITER must be called to enable subsequent calls of FOR_ITER and
+GET_ITER is not a jump target for one next iteration but FOR_ITER only.
+          <br>
+        </li>
+      </ol>
+      <br>
+      <h3><a class="mozTocH3" name="mozTocId637208"></a>2.2.3&nbsp;
+Chains of jumps and blocks<br>
+      </h3>
+As a solution for problem 2) and 3) chains of JUMP_ABSOLUTE bytecodes
+are used to connect different SETUP_XXX bytecodes preceeding the
+cricical offset. So we are hopping from one SETUP to the next and
+initialize the block stack.&nbsp; In case of a SETUP_LOOP belonging to
+a for-loop we are processing all bytecodes until the first one after
+FOR_ITER . <br>
+      <br>
+However generating jumps alone is not sufficient because each jump
+shall be processed exactly one. We need to deactivate all jumps when
+reaching the target offset. This cannot be done dynamically or by
+another bytecode transformation. Instead we use a local variable called
+      <small style="font-family: Courier New,Courier,monospace;">jump_forward_on
+      </small>as a switch and prepare a bytecode block carefully s.t.
+the JUMP_ABSOLUTE command is called when <small
+ style="font-family: Courier New,Courier,monospace;">jump_forward_on =
+True</small> and skipped otherwise. <br>
+      <br>
+      <table style="text-align: left; width: 70%;" border="0"
+ cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td style="vertical-align: top;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br>
+            </td>
+            <td style="vertical-align: top;"><img
+ style="width: 654px; height: 473px;" alt="" src="Bytecodes.PNG"><br>
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: top;"><br>
+            </td>
+            <td style="vertical-align: top;"><br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <br>
+The final block is a modified version of the block shown in the
+diagram. When <small
+ style="font-family: Courier New,Courier,monospace;">jump_forward_on </small>is
+True a second variable called <small
+ style="font-family: Courier New,Courier,monospace;">jump_forward_off </small>is
+loaded and its value is assigned to <small
+ style="font-family: Courier New,Courier,monospace;">jump_forward_on</small>.
+If this value is False the JUMP_IF_FALSE command causes skipping
+JUMP_ABSOLUTE in the next iteration:<br>
+      <br>
+      <small> </small><small> </small><small> </small><small> </small><small>
+      </small> <small> </small>
+      <table
+ style="background-color: rgb(255, 255, 239); font-family: courier new; text-align: left; width: 741px; height: 54px;"
+ border="0" cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td
+ style="background-color: rgb(236, 236, 236); vertical-align: top;"><small><span
+ style="font-family: Courier New,Courier,monospace;"><br>
+            </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; n&nbsp;&nbsp;
+(jump_forward_on)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;
+JUMP_IF_FALSE&nbsp;&nbsp; 10<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6&nbsp;
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; n+1 (jump_forward_off)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9&nbsp;
+STORE_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; n<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 12 POP_TOP<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 13 JUMP_ABSOLUTE&nbsp;&nbsp;
+setup_offset<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 16 POP_TOP<br>
+            </small><small><span
+ style="font-family: Courier New,Courier,monospace;"><br>
+            </span></small><small> </small></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+Finally we summarize and highlight changes on transformations of our
+original bytecode.<br>
+      <br>
+      <small> </small><small> </small><small> </small><small> </small><small>
+      </small> <small> </small>
+      <table
+ style="background-color: rgb(255, 255, 239); font-family: courier new; text-align: left; width: 741px; height: 54px;"
+ border="0" cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td
+ style="background-color: rgb(236, 236, 236); vertical-align: top;"><small><span
+ style="font-family: Courier New,Courier,monospace;"><br>
+            </span>&gt;&gt;&gt; f_gen = f(3,4)<br>
+&gt;&gt;&gt; f_gen.next()<br>
+0<br>
+&gt;&gt;&gt; f_gen.next()<br>
+1<br>
+&gt;&gt;&gt; g_gen = copy_generator(f_gen)<br>
+&gt;&gt;&gt; import dis<br>
+&gt;&gt;&gt; dis.dis(g_gen._g)<br>
+            <br>
+352&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+ style="color: rgb(204, 0, 0); font-weight: bold;">0
+JUMP_ABSOLUTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: rgb(204, 0, 0);">9</span> </span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+3
+LOAD_CONST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1 (0) <br>
+            <br>
+353&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6
+STORE_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2 (i) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+ style="color: rgb(102, 0, 204);"><span style="color: rgb(51, 0, 51);">&gt;&gt;</span></span><span
+ style="font-weight: bold; color: rgb(102, 0, 204);">&nbsp;&nbsp;&nbsp;
+            <span style="color: rgb(102, 51, 255); font-weight: bold;">9</span></span><span
+ style="color: rgb(102, 51, 255); font-weight: bold;">
+SETUP_LOOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+99 (to 111) </span><br>
+            <span style="color: rgb(204, 0, 0); font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+12
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+4 (jump_forward_on) </span><br
+ style="color: rgb(204, 0, 0); font-weight: bold;">
+            <span style="color: rgb(204, 0, 0); font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+15
+JUMP_IF_FALSE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+4 (to 22) </span><br style="color: rgb(204, 0, 0); font-weight: bold;">
+            <span style="color: rgb(204, 0, 0); font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+18
+POP_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span><br style="color: rgb(204, 0, 0); font-weight: bold;">
+            <span style="color: rgb(204, 0, 0); font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+19
+JUMP_ABSOLUTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: rgb(51, 51, 255);">47 </span></span><br
+ style="color: rgb(204, 0, 0); font-weight: bold;">
+            <br style="color: rgb(204, 0, 0); font-weight: bold;">
+            <span style="color: rgb(51, 0, 51);">354&nbsp;&nbsp;&nbsp;&nbsp;
+&gt;&gt;</span><span style="color: rgb(204, 0, 0); font-weight: bold;">&nbsp;&nbsp;
+22
+POP_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span><br style="color: rgb(204, 0, 0); font-weight: bold;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt;&nbsp;&nbsp; 23
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2 (i) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+26
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0 (x) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+29
+COMPARE_OP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0 (&lt;) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+32
+JUMP_IF_FALSE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+74 (to 109) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+35
+POP_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+36
+LOAD_CONST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1 (0) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+39
+STORE_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+3 (j) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+42
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2 (i) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+45 YIELD_VALUE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+46
+POP_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt;&nbsp;&nbsp; <span
+ style="color: rgb(102, 51, 255); font-weight: bold;">47
+SETUP_LOOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+56 (to 106) </span><br>
+            <span style="color: rgb(204, 0, 0); font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+50
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+4 (jump_forward_on) </span><br
+ style="color: rgb(204, 0, 0); font-weight: bold;">
+            <span style="color: rgb(204, 0, 0); font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+53
+JUMP_IF_FALSE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+10 (to 66) </span><br style="color: rgb(204, 0, 0); font-weight: bold;">
+            <span style="color: rgb(204, 0, 0); font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+56
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+5 (jump_forward_off) </span><br
+ style="color: rgb(204, 0, 0); font-weight: bold;">
+            <span style="color: rgb(204, 0, 0); font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+59
+STORE_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+4 (jump_forward_on) </span><br
+ style="color: rgb(204, 0, 0); font-weight: bold;">
+            <span style="color: rgb(204, 0, 0); font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+62
+POP_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span><br style="color: rgb(204, 0, 0); font-weight: bold;">
+            <span style="color: rgb(204, 0, 0); font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+63
+JUMP_ABSOLUTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: rgb(51, 51, 255);">91 </span></span><br
+ style="color: rgb(204, 0, 0); font-weight: bold;">
+            <span style="color: rgb(204, 0, 0); font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span><span style="color: rgb(204, 0, 0);"><span
+ style="color: rgb(51, 0, 51);">&gt;&gt;</span></span><span
+ style="color: rgb(204, 0, 0); font-weight: bold;">&nbsp;&nbsp; 66
+POP_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span><br style="color: rgb(204, 0, 0); font-weight: bold;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt;&nbsp;&nbsp; 67
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+3 (j) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+70
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1 (y) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+73
+COMPARE_OP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0 (&lt;) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+76
+JUMP_IF_FALSE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+25 (to 104) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+79
+POP_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+80
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2 (i) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+83
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+3 (j) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+86
+BUILD_TUPLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+89 YIELD_VALUE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+90
+POP_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt;&nbsp;&nbsp; <span
+ style="color: rgb(51, 51, 255); font-weight: bold;">91
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+3 (j) </span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+94
+LOAD_CONST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2 (1) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+97 INPLACE_ADD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+98
+STORE_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+3 (j) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 101
+JUMP_ABSOLUTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+67 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt;&nbsp; 104
+POP_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 105
+POP_BLOCK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt;&nbsp; 106
+JUMP_ABSOLUTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+23 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt;&nbsp; 109
+POP_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 110
+POP_BLOCK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt;&nbsp; 111
+LOAD_CONST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0 (None) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 114
+RETURN_VALUE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+            </small> <br>
+            <br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <h2><a class="mozTocH2" name="mozTocId741289"></a>2.3 How to
+clone a running for-loop ?<br>
+      </h2>
+How can one clone an iterator? Hasn't this question been answered
+already with regard to cloning generators? Or else: if we invent a
+different cloning algorithm for iterators why not applying it also
+towards generators, something more simple than bytecode hackery? The
+basic answer for cloning iterators is very simple: turn them into lists
+and clone those. But this is inefficient and a serialization strategy
+at best - something being important when we pickle iterators. <br>
+      <br>
+The answer to copying iterators is to provide IteratorViews. This means
+we do not copy iterators at all but provide copies of IteratorView
+objects that refer to one unique _IterWrapper object which encapsulate
+an iterator and caches its values. The real iterator is therefore
+shared among different IteratorViews. An IteratorView just stored the <span
+ style="font-style: italic;">state</span> of its own iteration. This
+state is an index into the cached iterator value list. When an
+IteratorView is copied it is the index that is copied as well and it
+will then be incremented separately in subsequent calls to next().<br>
+      <br>
+However the truth about IteratorViews is actually a little bit more
+complicated as will be shown below:<br>
+      <br>
+      <small> </small><small> </small><small> </small><small> </small><small>
+      </small> <small> </small>
+      <table
+ style="background-color: rgb(255, 255, 239); font-family: courier new; text-align: left; width: 741px; height: 54px;"
+ border="0" cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td
+ style="background-color: rgb(236, 236, 236); vertical-align: top;"><small><span
+ style="font-family: Courier New,Courier,monospace;">&gt;&gt;&gt;
+r&nbsp; = range(4)&nbsp;&nbsp; <br>
+&gt;&gt;&gt; iv = for_iter(r)<br>
+&gt;&gt;&gt; iv<br>
+&lt;__main__.IteratorView object at 0x0134B330&gt;<br>
+&gt;&gt;&gt; iv.next()&nbsp;&nbsp; # iv.offset -&gt; 0 , recorded -&gt;
+[0]<br>
+0<br>
+&gt;&gt;&gt; iv.next()&nbsp;&nbsp; # iv.offset -&gt; 1 , recorded -&gt;
+[0, 1]<br>
+1<br>
+&gt;&gt;&gt; iv2 = iv.__gencopy__()&nbsp; # copy iv with offset = 1<br>
+&gt;&gt;&gt; iv2.next()&nbsp; <br>
+1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="font-weight: bold;"># ??? Bug? <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+# Didn't we all expect the offset being 1 and the next value being 2 ?</span></span></small><small><span
+ style="font-family: Courier New,Courier,monospace;"><br>
+            </span></small><small><span
+ style="font-family: Courier New,Courier,monospace;"><br>
+            </span></small></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+The reason for this admittedly strange behaviour is the fact that
+for_iter is not used primarily for just copying iterators but copying
+iterators of for-loops. To understand why we decrement the offset on
+copy we need to decompile an iterator containing a for-loop.<br>
+      <br>
+      <small> </small><small> </small><small> </small><small> </small><small>
+      </small> <small> </small>
+      <table
+ style="background-color: rgb(255, 255, 239); font-family: courier new; text-align: left; width: 741px; height: 54px;"
+ border="0" cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td
+ style="background-color: rgb(236, 236, 236); vertical-align: top;"><small><span
+ style="font-family: Courier New,Courier,monospace;"><br>
+            </span>352&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: rgb(51, 0, 51);">0
+JUMP_ABSOLUTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+21 </span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+3
+LOAD_GLOBAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0 (for_iter) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+6
+LOAD_GLOBAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1 (range) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+9
+LOAD_CONST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1 (10) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+12
+CALL_FUNCTION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+15
+CALL_FUNCTION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1 <br>
+            <br>
+353&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 18
+STORE_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0 (it) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt;&nbsp;&nbsp; <span
+ style="color: rgb(51, 0, 51);">21</span>
+SETUP_LOOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+36 (to 60) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+24
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0 (it) <br>
+            <span style="color: rgb(153, 51, 153); font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+27
+GET_ITER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span><br
+ style="color: rgb(153, 51, 153); font-weight: bold;">
+            <span style="color: rgb(153, 51, 153); font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&gt;&gt;&nbsp;&nbsp; 28
+FOR_ITER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+28 (to 59) </span><br
+ style="color: rgb(153, 51, 153); font-weight: bold;">
+            <br style="color: rgb(153, 51, 153); font-weight: bold;">
+            <span style="color: rgb(153, 51, 153); font-weight: bold;">354&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+31
+STORE_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1 (i) </span><br style="color: rgb(204, 0, 0); font-weight: bold;">
+            <span style="color: rgb(51, 0, 51);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+34
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2 (jump_forward_on) </span><br style="color: rgb(51, 0, 51);">
+            <span style="color: rgb(51, 0, 51);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+37
+JUMP_IF_FALSE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+10 (to 50) </span><br style="color: rgb(51, 0, 51);">
+            <span style="color: rgb(51, 0, 51);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+40
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+3 (jump_forward_off) </span><br style="color: rgb(51, 0, 51);">
+            <span style="color: rgb(51, 0, 51);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+43
+STORE_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2 (jump_forward_on) </span><br style="color: rgb(51, 0, 51);">
+            <span style="color: rgb(51, 0, 51);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+46
+POP_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span><br style="color: rgb(51, 0, 51);">
+            <span style="color: rgb(51, 0, 51);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+47
+JUMP_ABSOLUTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+56 </span><br style="color: rgb(51, 0, 51);">
+            <span style="color: rgb(51, 0, 51);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&gt;&gt;&nbsp;&nbsp; 50
+POP_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span><br style="color: rgb(51, 0, 51);">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+51
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1 (i) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+54 YIELD_VALUE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+55
+POP_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt;&nbsp;&nbsp; <span
+ style="font-weight: bold; color: rgb(204, 0, 0);">56
+JUMP_ABSOLUTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+28</span> <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt;&nbsp;&nbsp; 59
+POP_BLOCK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt;&nbsp;&nbsp; 60
+LOAD_CONST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0 (None) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+63 RETURN_VALUE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+            </small> <small><span
+ style="font-family: Courier New,Courier,monospace;"><br>
+            </span></small><small> </small></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+The critical section is highlighted. What happened here is that the
+iterator is called once with FOR_ITER before the JUMP_ABSOLUTE command
+at offset 56 is reached which continues iteration with another jump to
+FOR_ITER. So FOR_ITER is called twice! By decrementing the index in the
+IteratorView we ensure that the correct value is used at each
+iteration. <br>
+      <br>
+Maybe you have noticed that the name of the copy function is called
+__gencopy__ and it might be applied for internal copying purposes only.
+Another function is called __itercopy__ and it provides non-surprising
+behaviour as being shown in the next example:<br>
+      <br>
+      <small> </small><small> </small><small> </small><small> </small><small>
+      </small> <small> </small>
+      <table
+ style="background-color: rgb(255, 255, 239); font-family: courier new; text-align: left; width: 777px; height: 365px;"
+ border="0" cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td
+ style="background-color: rgb(236, 236, 236); vertical-align: top;"><small><span
+ style="font-family: Courier New,Courier,monospace;"></span>&gt;&gt;&gt;
+iv = for_iter(range(4))<br>
+&gt;&gt;&gt; iv.next()<br>
+0<br>
+&gt;&gt;&gt; iv.next()<br>
+1<br>
+&gt;&gt;&gt; iv2 = iv.__itercopy__()<br>
+&gt;&gt;&gt; iv2.next()<br>
+2<br>
+&gt;&gt;&gt; iv2.next()<br>
+3<br>
+&gt;&gt;&gt; iv.next()<br>
+2<br>
+&gt;&gt;&gt; list(iv)<br>
+[3]<br>
+&gt;&gt;&gt; iv2.next()<br>
+            <span style="color: rgb(255, 0, 0);">Traceback (most recent
+call last):</span><br style="color: rgb(255, 0, 0);">
+            <span style="color: rgb(255, 0, 0);">&nbsp; File
+"&lt;interactive input&gt;", line 1, in &lt;module&gt;</span><br
+ style="color: rgb(255, 0, 0);">
+            <span style="color: rgb(255, 0, 0);">&nbsp; File
+"c:\lang\python25\lib\site-packages\generator_tools\copygenerators.py",
+line 64, in next</span><br style="color: rgb(255, 0, 0);">
+            <span style="color: rgb(255, 0, 0);">&nbsp;&nbsp;&nbsp;
+item = self.itwrap.next(self)</span><br style="color: rgb(255, 0, 0);">
+            <span style="color: rgb(255, 0, 0);">&nbsp; File
+"c:\lang\python25\lib\site-packages\generator_tools\copygenerators.py",
+line 28, in next</span><br style="color: rgb(255, 0, 0);">
+            <span style="color: rgb(255, 0, 0);">&nbsp;&nbsp;&nbsp;
+item = self.it.next()</span><br style="color: rgb(255, 0, 0);">
+            <span style="color: rgb(255, 0, 0);">StopIteration</span><br
+ style="color: rgb(255, 0, 0);">
+            <br>
+            </small><small><span
+ style="font-family: Courier New,Courier,monospace;"></span></small></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+You can use also use copy.deepcopy to achieve the same effect.<br>
+      <br>
+      <h1><a class="mozTocH1" name="mozTocId742105"></a>3. The
+picklegenerators
+module<br>
+      </h1>
+      <span style="color: rgb(153, 0, 0); font-weight: bold;">Changed
+in
+version
+0.3</span><br>
+      <br>
+The picklegenerators modules serves as a full replacement for the
+pickle
+module. You can use convenient API functions like dump, dumps or load
+or the classes Pickler, Unpickler. The only notable difference is that
+generator objects ( as well as some derived objects ) can now be
+pickled / unpickled. Classes like GeneratorPickler or functions like
+unpickle_generator are marked as deprecated and a warning is sent when
+being called. They will be entirely removed in version 0.5 of
+generator_tools.<br>
+      <br>
+      <h1><a class="mozTocH1" name="mozTocId957312"></a>4. Caveats and
+Limitations<br>
+      </h1>
+      <span style="font-weight: bold;"></span>Some additional advices
+for the user of generator_tools<br>
+      <h2><a class="mozTocH2" name="mozTocId214915"></a>4.1 Avoid yield
+statements in finally clauses</h2>
+On a few occasions yield statements in finally clauses crashed my
+Python interpreter. This behaviour even lead to drop of those tests
+from the test suite and leave the note here instead. While not always
+being harmfull when copied there are at least indications for not
+working correctly and they shall be avoided.<br>
+      <br>
+      <h2><a class="mozTocH2" name="mozTocId712413"></a>4.2 Avoid
+Python 2.5 yield expressions</h2>
+This is a rather strong demand and it is justified in many cases, at
+least when you intend to copy them using generator_tools. Otherwise
+they are just fine. If you are careful you can sidestep at least some
+of the caveats but not all. <br>
+      <br>
+Notice that I've added a new module called enhanced_generator.py which
+describes an attempt to make a class of Python 2.5 style "enhanced
+generators" viable in generator_tools. However these are not the
+generators described in the next subsection.<br>
+      <h2><a class="mozTocH2" name="mozTocId909573"></a><small>4.2.1
+How to use generator_tools to crash the interpreter<br>
+      </small></h2>
+Python 2.5 yield expressions do not generally work. They work to some
+extent in the most simple cases but they are generally broken and I
+don't believe this can be fixed. I try to explain using the following
+example:<br>
+      <br>
+      <small> </small><small> </small><small> </small><small> </small><small>
+      </small> <small> </small> <small> </small><small> </small><small>
+      </small>
+      <table
+ style="background-color: rgb(255, 255, 239); font-family: courier new; text-align: left; width: 741px; height: 54px;"
+ border="0" cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td
+ style="background-color: rgb(236, 236, 236); vertical-align: top;"><small>def
+f():<br>
+&nbsp;&nbsp;&nbsp; yield<br>
+&nbsp;&nbsp;&nbsp; a = 0<br>
+&nbsp;&nbsp;&nbsp; it = for_iter(range(3))<br>
+&nbsp;&nbsp;&nbsp; for i in it:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a = ((yield a) or 1) +
+((yield a) or 1)&nbsp;&nbsp; <br>
+            </small></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+The critical section in the disassembled bytecode of the copied
+generator shall be examined:<br>
+      <br>
+      <small> </small><small> </small><small> </small><small> </small><small>
+      </small> <small> </small> <small> </small><small> </small><small>
+      </small> <small> </small><small> </small><small> </small>
+      <table
+ style="background-color: rgb(255, 255, 239); font-family: courier new; text-align: left; width: 741px; height: 54px;"
+ border="0" cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td
+ style="background-color: rgb(236, 236, 236); vertical-align: top;"><small>311&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0
+JUMP_ABSOLUTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+32<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+...<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+58
+JUMP_ABSOLUTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+77<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+...<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+76 YIELD_VALUE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt;&nbsp;&nbsp; 77
+JUMP_IF_TRUE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+4 (to 84)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+80
+POP_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+81
+LOAD_CONST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+3 (1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt;&nbsp;&nbsp; 84
+BINARY_ADD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+...<br>
+            </small></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+The execution starts with a <small
+ style="font-family: Courier New,Courier,monospace;">JUMP_ABSOLUTE</small>.
+A few operations will be performed to intialize the iterator which are
+not of interest here. Then another <small
+ style="font-family: Courier New,Courier,monospace;">JUMP_ABSOLUTE</small>
+will be executed to the offset right after <small
+ style="font-family: Courier New,Courier,monospace;">YIELD_VALUE</small>
+which is the point of suspension of the original generator. So the
+first opcode of interest is <small
+ style="font-family: Courier New,Courier,monospace;">JUMP_IF_TRUE</small>.
+What does it? Well it looks at the top of the stack for a value <span
+ style="font-style: italic;">v</span>. If <span
+ style="font-style: italic;">v</span> == True it jumps directly to <small
+ style="font-family: Courier New,Courier,monospace;">BINARY_ADD</small>.
+If False it <small><span
+ style="font-family: Courier New,Courier,monospace;">POP_TOP</span></small>s
+      <span style="font-style: italic;">v</span> from the stack and <small
+ style="font-family: Courier New,Courier,monospace;">LOAD_CONST</small>
+pushes 1 on the stack. <br>
+      <br>
+But what is <span style="font-style: italic;">v</span>? Where does it
+come from? Well <span style="font-style: italic;">v</span> was pushed
+on the stack by <small
+ style="font-family: Courier New,Courier,monospace;">YIELD_VALUE</small>.
+The <small style="font-family: Courier New,Courier,monospace;">YIELD_VALUE</small>
+opcode always does even when a Python 2.4 style yield statement is
+executed. In that case the execution sequence looks like this<br>
+      <br>
+      <small> </small><small> </small><small> </small><small> </small><small>
+      </small> <small> </small> <small> </small><small> </small><small>
+      </small> <small> </small><small> </small><small> </small>
+      <table
+ style="background-color: rgb(255, 255, 239); font-family: courier new; text-align: left; width: 741px; height: 54px;"
+ border="0" cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td
+ style="background-color: rgb(236, 236, 236); vertical-align: top;"><small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+76 YIELD_VALUE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 77
+POP_TOP
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+            </small></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+and <small><span style="font-family: Courier New,Courier,monospace;">POP_TOP</span></small>
+simply pops None from the stack. But where is <span
+ style="font-style: italic;">v</span> in case of a copied generator?
+The depressing answer is: nowhere. That's why the <small
+ style="font-family: Courier New,Courier,monospace;">BINARY_ADD</small>
+opcode produces an interpreter crash. It tries to gather a value from
+the stack that is not there. It is easy to void the crash in case of
+yield statements. Just shift the offset from <small><span
+ style="font-family: Courier New,Courier,monospace;">POP_TOP</span></small>
+where None is popped from the stack to the next opcode. The push/pop
+sequence is completely skipped. <br>
+      <br>
+      <h2><a class="mozTocH2" name="mozTocId331854"></a><small><small>4.2.2&nbsp;
+Why aren't yield expressions entirely evil?<br>
+      </small></small></h2>
+Consider the following generator<br>
+      <br>
+      <small> </small><small> </small><small> </small><small> </small><small>
+      </small> <small> </small> <small> </small><small> </small><small>
+      </small>
+      <table
+ style="background-color: rgb(255, 255, 239); font-family: courier new; text-align: left; width: 741px; height: 54px;"
+ border="0" cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td
+ style="background-color: rgb(236, 236, 236); vertical-align: top;"><small>&nbsp;&nbsp;&nbsp;
+def f():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; yield <sup
+ style="color: rgb(255, 0, 0); font-weight: bold;">1</sup><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a = 0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; it = for_iter(range(10))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for i in it:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b =
+yield a+i</small><small> <sup
+ style="color: rgb(255, 0, 0); font-weight: bold;">2</sup></small><br>
+            <small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+print "b =", b<br>
+            </small></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+The tiny red numbers indicate the positions where the generator stops
+when being called with next/send.<br>
+      <br>
+      <small> </small><small> </small><small> </small><small> </small><small>
+      </small> <small> </small> <small> </small><small> </small><small>
+      </small>
+      <table
+ style="background-color: rgb(255, 255, 239); font-family: courier new; text-align: left; width: 741px; height: 54px;"
+ border="0" cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td
+ style="background-color: rgb(236, 236, 236); vertical-align: top;"><small>&gt;&gt;&gt;
+f_gen = f()<br>
+&gt;&gt;&gt; f_gen.next()&nbsp;&nbsp; # stops at </small><small> <sup
+ style="color: rgb(255, 0, 0); font-weight: bold;">1</sup></small><small>
+- no b yet available</small><br>
+            <small>&gt;&gt;&gt; f_gen.next()&nbsp;&nbsp; # stops at </small><small>
+            <sup style="color: rgb(255, 0, 0); font-weight: bold;">2</sup></small><small>
+- no b yet available</small><br>
+            <small>&gt;&gt;&gt; f_gen.send(5)&nbsp; # stops at&nbsp;</small><small><sup
+ style="color: rgb(255, 0, 0); font-weight: bold;">2</sup></small><small>
+- b is 5</small><br>
+            <small>b = 5 &nbsp;&nbsp;&nbsp; </small><small><br>
+            </small></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+Now suppose you want to copy f_gen. The resulting generator copy has
+the following disassembly at the critical spot:<br>
+      <br>
+      <small> </small><small> </small><small> </small><small> </small><small>
+      </small> <small> </small> <small> </small><small> </small><small>
+      </small> <small> </small><small> </small><small> </small>
+      <table
+ style="background-color: rgb(255, 255, 239); font-family: courier new; text-align: left; width: 741px; height: 54px;"
+ border="0" cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td
+ style="background-color: rgb(236, 236, 236); vertical-align: top;"><small>311&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0
+JUMP_ABSOLUTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+32<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+...<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+58
+JUMP_ABSOLUTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+73<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt;&nbsp;&nbsp; 61
+POP_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+62
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0 (a)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+65
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2 (i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+68 BINARY_ADD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+69 YIELD_VALUE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+70
+STORE_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+3 (b)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt;&nbsp;&nbsp; 73
+LOAD_CONST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+3 ('B')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+76 PRINT_ITEM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+77
+LOAD_FAST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+3 (b)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+...<br>
+            </small></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+What you see here is that <small
+ style="font-family: Courier New,Courier,monospace;">JUMP_ABSOLUTE</small>
+targets<small style="font-family: Courier New,Courier,monospace;">
+LOAD_CONST </small>but not <small
+ style="font-family: Courier New,Courier,monospace;">STORE_FAST</small>.
+That's because <small
+ style="font-family: Courier New,Courier,monospace;">STORE_FAST </small>suffers
+from the same problems as we have just mentioned: it pops a value from
+the stack and stores it in the locals of the generator. However we
+don't need it because we can access the locals via <small
+ style="font-family: Courier New,Courier,monospace;">gen_f.gi_frame.f_locals</small>
+and pass b as a parameter into the generator copy. The fact that f_gen
+did store the value for us already makes live easier. But no no-brainer
+because:<br>
+      <h3><a class="mozTocH3" name="mozTocId698221"></a>4.2.3&nbsp; A
+generator copy is always a <span
+ style="font-family: Courier New,Courier,monospace;">fresh</span>
+generator<br>
+      </h3>
+A copy of a generator is always a <span style="font-style: italic;">fresh
+generator</span> not a running one
+and it has to be started with <small
+ style="font-family: Courier New,Courier,monospace;">next()</small> or <small><span
+ style="font-family: Courier New,Courier,monospace;">send(None)</span></small>
+according to Pythons rules.
+This is not open to manipulation because it would require to adjust the
+bytecode offset <small><span
+ style="font-family: Courier New,Courier,monospace;">g_gen.gi_frame.f_lasti</span></small>
+of g_gen from within Python which is readonly.<br>
+      <br>
+We need to start gen_g once to jump to the <small
+ style="font-family: Courier New,Courier,monospace;">LOAD_CONST </small>opcode.
+Only after this step you can use send() for passing values back into
+the generator:<br>
+      <br>
+      <small> </small><small> </small><small> </small><small> </small><small>
+      </small> <small> </small> <small> </small><small> </small><small>
+      </small>
+      <table
+ style="background-color: rgb(255, 255, 239); font-family: courier new; text-align: left; width: 741px; height: 54px;"
+ border="0" cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td
+ style="background-color: rgb(236, 236, 236); vertical-align: top;"><small>&gt;&gt;&gt;
+g_gen = copy_generator(f_gen)<br>
+&gt;&gt;&gt; g_gen.next()<br>
+B 5<br>
+            </small></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <h2><a class="mozTocH2" name="mozTocId960205"></a>4.3 Avoid
+closures</h2>
+Closures ( inner functions ) are not supported. <br>
+      <br>
+      <h2><a class="mozTocH2" name="mozTocId861929"></a>4.4 Python 3.0
+is not dry yet</h2>
+I've done some wrapping of datatypes after unpickling. I believe
+pickling/unpickling is broken in Python 3.0 at this stage of
+development but I expected struggling with type conversions anyway. <br>
+      <br>
+      <span style="color: rgb(153, 0, 0); font-weight: bold;">New in
+version
+0.2:</span><span style="font-weight: bold;"></span> pickling is
+troublesome using Python 3.0 a2. Not sure if it's a bug in
+generator_tools or in Python 3.0. I will suspend additional releases
+supporting 3.0 and wait until the first beta.<br>
+      <br>
+      <h1><a class="mozTocH1" name="mozTocId794616"></a>5.
+Acknowledgements</h1>
+Thanks to Klaus Müller, Jenna Louis, Lorenz Quack, Marek Majkowski, Tom
+Salfield, Markus Brückner for
+important reinforcements. Special thanks to
+Lorenz Quack for providing a redesign of the picklegenerators module.<br>
+      <br>
+      <h1><a class="mozTocH1" name="mozTocId457475"></a>6. History</h1>
+      <br>
+      <table style="text-align: left; width: 785px; height: 212px;"
+ border="1" cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td
+ style="vertical-align: top; text-align: left; background-color: rgb(240, 240, 240);"><span
+ style="font-weight: bold;">Date</span><br>
+            </td>
+            <td
+ style="vertical-align: top; text-align: left; background-color: rgb(240, 240, 240);"><span
+ style="font-weight: bold;">Version</span><br>
+            </td>
+            <td
+ style="vertical-align: top; text-align: left; background-color: rgb(240, 240, 240);"><span
+ style="font-weight: bold;">Change</span><br>
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: top;">2009-02-24</td>
+            <td style="vertical-align: top;">0.3.6<br>
+            </td>
+            <td style="vertical-align: top;">
+            <ul>
+              <li>generator copy is is created with globals of copied
+generator<br>
+              </li>
+            </ul>
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: top;">2009-01-04</td>
+            <td style="vertical-align: top;">0.3.5</td>
+            <td style="vertical-align: top;">
+            <ul>
+              <li>If a yield expression has the form 'b = yield a' and
+the surrounding generator is copied it has to be resumed sending next()
+or send(None). So b always will always be None. In version 0.3.4 the
+last value of b being used within the generator was passed instead.
+This error has been corrected now.<br>
+              </li>
+            </ul>
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: top;">2008-07-28<br>
+            </td>
+            <td style="vertical-align: top;">0.3.4<br>
+            </td>
+            <td style="vertical-align: top;">
+            <ul>
+              <li>Make a subset of Python 2.5 style yield expressions
+actually work within tight boundaries. Read the <a
+ href="#mozTocId712413">extended discussion</a> of their limitations in
+generator_tools.<br>
+              </li>
+            </ul>
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: top;">2008-07-07<br>
+            </td>
+            <td style="vertical-align: top;">0.3.3<br>
+            </td>
+            <td style="vertical-align: top;">
+            <ul>
+              <li>For simple yield expressions or simple sequences of
+yield expressions no jump was generated. This bug came in with version
+0.3.2.</li>
+              <li>Make functions loads() and dumps() visible on package
+level.<br>
+              </li>
+            </ul>
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: top;">2008-05-17<br>
+            </td>
+            <td style="vertical-align: top;">0.3.2<br>
+            </td>
+            <td style="vertical-align: top;">
+            <ul>
+              <li>Fix initialization bug. When a generator gen_f
+contains a nested for loop or a sequence of for loops not all for_iter
+IteratorViews might have been initialized. When gen_f is copied the
+copying routine counts the number of IteratorView objects and compares
+it with the number of FOR_ITER opcodes available in gen_f. This is too
+eager and the copying routine has been modified s.t. only the number of
+FOR_ITER opcodes preceeding the last_i opcode are counted.</li>
+              <li>Fixing sequences of for-loops. When two or more for
+loops occured within a generator in sequence generator_tools produced a
+wrong jump sequence. This has been adjusted in this version.<br>
+              </li>
+            </ul>
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: top;">2008-03-28<br>
+            </td>
+            <td style="vertical-align: top;">0.3.1<br>
+            </td>
+            <td style="vertical-align: top;">
+            <ul>
+              <li>Fix sameness bug for
+pickling generators. A generator object G which existed at different
+locations loc1, loc2 has been converted into distinct
+GeneratorSnapshots GS1, GS2 for pickling which lead to distinct
+unpickled generators uG1, uG2. We have established now a unique
+correspondence of G with uG.</li>
+            </ul>
+            </td>
+          </tr>
+          <tr>
+            <td
+ style="vertical-align: top; background-color: rgb(250, 250, 250);">2008-01-26
+&nbsp;&nbsp; <br>
+            </td>
+            <td style="vertical-align: top;">0.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br>
+            </td>
+            <td style="vertical-align: top;">
+            <ul>
+              <li>Redesign of the
+picklegenerators module ( by Lorenz Quack )</li>
+            </ul>
+            </td>
+          </tr>
+          <tr>
+            <td
+ style="vertical-align: top; background-color: rgb(250, 250, 250);">2008-01-22<br>
+            </td>
+            <td style="vertical-align: top;">0.2<br>
+            </td>
+            <td style="vertical-align: top;">
+            <ul>
+              <li>Implement copy_filter function as second optional
+parameter</li>
+              <li>Modify unpickling s.t. GeneratorSnapshot is not
+deepcopied anymore</li>
+              <li>Adapt interface of GeneratorPickler to be complient
+with interface of pickler.Pickler and declare the old interface as
+deprecated.</li>
+              <li>Delay a 0.2 release for Python 3.0<br>
+              </li>
+            </ul>
+            </td>
+          </tr>
+          <tr>
+            <td
+ style="vertical-align: top; background-color: rgb(250, 250, 250);">2007-10-5<br>
+            </td>
+            <td style="vertical-align: top;">0.1<br>
+            </td>
+            <td style="vertical-align: top;">Initial release<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+</body>
+</html>
