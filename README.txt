@@ -1,3 +1,5 @@
+**This package has been archived. It was only a workaround to make generator_tools work with Python 2.7 and is not suitable for use in new projects.**
+
 generator_tools
 ===============
 
